@@ -1,16 +1,16 @@
 <?php
 
-namespace Notify\Laravel\Toastr\Tests;
+namespace Notify\Laravel\SweetAlert\Tests;
 
-class NotifyToastrServiceProviderTest extends TestCase
+class NotifySweetAlertServiceProviderTest extends TestCase
 {
-    public function test_container_contain_notify_services()
+    public function testContainerContainNotifyServices()
     {
         $this->assertTrue($this->app->bound('notify.producer'));
-        $this->assertTrue($this->app->bound('notify.producer.toastr'));
+        $this->assertTrue($this->app->bound('notify.producer.sweet_alert'));
     }
 
-    public function test_notify_factory_is_added_to_extensions_array()
+    public function testNotifyFactoryIsAddedToExtensionsArray()
     {
         $manager = $this->app->make('notify.producer');
 
@@ -21,10 +21,10 @@ class NotifyToastrServiceProviderTest extends TestCase
         $extensions = $property->getValue($manager);
 
         $this->assertCount(1, $extensions);
-        $this->assertInstanceOf('Notify\Producer\ProducerInterface', $extensions['toastr']);
+        $this->assertInstanceOf('Notify\Producer\ProducerInterface', $extensions['sweet_alert']);
     }
 
-    public function test_config_toastr_injected_in_global_notify_config()
+    public function testConfigSweetAlertInjectedInGlobalNotifyConfig()
     {
         $manager = $this->app->make('notify.producer');
 
@@ -34,15 +34,12 @@ class NotifyToastrServiceProviderTest extends TestCase
 
         $config = $property->getValue($manager);
 
-        $this->assertArrayHasKey('toastr', $config->get('adapters'));
+        $this->assertArrayHasKey('sweet_alert', $config->get('adapters'));
 
         $this->assertEquals(array(
-            'toastr' => array(
-                'scripts' => array('jquery.js'),
-                'styles' => array('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css'),
-                'options' => array(),
-            ),
+            'toastr' => array('scripts' => array('jquery.js')),
             'pnotify' => array('scripts' => array('jquery.js')),
+            'sweet_alert' => array('scripts' => array('jquery.js'), 'styles' => array('styles.css'), 'options' => array()),
         ), $config->get('adapters'));
     }
 }

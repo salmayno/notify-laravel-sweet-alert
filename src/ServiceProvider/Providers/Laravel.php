@@ -1,14 +1,14 @@
 <?php
 
-namespace Notify\Laravel\Toastr\ServiceProvider\Providers;
+namespace Notify\Laravel\SweetAlert\ServiceProvider\Providers;
 
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Application;
-use Notify\Laravel\Toastr\NotifyToastrServiceProvider;
+use Notify\Laravel\SweetAlert\NotifySweetAlertServiceProvider;
 use Notify\Producer\ProducerManager;
 use Notify\Renderer\RendererManager;
-use Notify\Toastr\Producer\ToastrProducer;
-use Notify\Toastr\Renderer\ToastrRenderer;
+use Notify\SweetAlert\Producer\SweetAlertProducer;
+use Notify\SweetAlert\Renderer\SweetAlertRenderer;
 
 class Laravel implements ServiceProviderInterface
 {
@@ -24,47 +24,47 @@ class Laravel implements ServiceProviderInterface
         return $this->app instanceof Application;
     }
 
-    public function publishConfig(NotifyToastrServiceProvider $provider)
+    public function publishConfig(NotifySweetAlertServiceProvider $provider)
     {
         $source = realpath($raw = __DIR__.'/../../../resources/config/config.php') ?: $raw;
 
-        $provider->publishes(array($source => config_path('notify_toastr.php')), 'config');
+        $provider->publishes(array($source => config_path('notify_sweet_alert.php')), 'config');
 
-        $provider->mergeConfigFrom($source, 'notify_toastr');
+        $provider->mergeConfigFrom($source, 'notify_sweet_alert');
     }
 
-    public function registerNotifyToastrServices()
+    public function registerNotifySweetAlertServices()
     {
-        $this->app->singleton('notify.producer.toastr', function (Container $app) {
-            return new ToastrProducer($app['notify.storage'], $app['notify.middleware']);
+        $this->app->singleton('notify.producer.sweet_alert', function (Container $app) {
+            return new SweetAlertProducer($app['notify.storage'], $app['notify.middleware']);
         });
 
-        $this->app->singleton('notify.renderer.toastr', function (Container $app) {
-            return new ToastrRenderer($app['notify.config']);
+        $this->app->singleton('notify.renderer.sweet_alert', function (Container $app) {
+            return new SweetAlertRenderer($app['notify.config']);
         });
 
-        $this->app->alias('notify.producer.toastr', 'Notify\Toastr\Producer\ToastrProducer');
-        $this->app->alias('notify.renderer.toastr', 'Notify\Toastr\Renderer\ToastrRenderer');
+        $this->app->alias('notify.producer.sweet_alert', 'Notify\SweetAlert\Producer\SweetAlertProducer');
+        $this->app->alias('notify.renderer.sweet_alert', 'Notify\SweetAlert\Renderer\SweetAlertRenderer');
 
         $this->app->extend('notify.producer', function (ProducerManager $manager, Container $app) {
-            $manager->addDriver('toastr', $app['notify.producer.toastr']);
+            $manager->addDriver('sweet_alert', $app['notify.producer.sweet_alert']);
 
             return $manager;
         });
 
         $this->app->extend('notify.renderer', function (RendererManager $manager, Container $app) {
-            $manager->addDriver('toastr', $app['notify.renderer.toastr']);
+            $manager->addDriver('sweet_alert', $app['notify.renderer.sweet_alert']);
 
             return $manager;
         });
     }
 
-    public function mergeConfigFromToastr()
+    public function mergeConfigFromSweetAlert()
     {
-        $notifyConfig = $this->app['config']->get('notify.adapters.toastr', array());
+        $notifyConfig = $this->app['config']->get('notify.adapters.sweet_alert', array());
 
-        $toastrConfig = $this->app['config']->get('notify_toastr', array());
+        $sweetAlertConfig = $this->app['config']->get('notify_sweet_alert', array());
 
-        $this->app['config']->set('notify.adapters.toastr', array_merge($toastrConfig, $notifyConfig));
+        $this->app['config']->set('notify.adapters.sweet_alert', array_merge($sweetAlertConfig, $notifyConfig));
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "php-notify/notify-laravel-sweet-alert",
-    "description": "Laravel Notify adapter package for php-notify/notify-toastr",
+    "description": "Laravel Notify adapter package for php-notify/notify-sweet-alert",
     "keywords": [
         "yoeunes",
         "notify",
@@ -14,7 +14,8 @@
         "pnotify",
         "toastr ",
         "bundle",
-        "flex"
+        "flex",
+        "sweet alert"
     ],
     "homepage": "https://github.com/php-notify/notify-laravel",
     "authors": [
@@ -38,18 +39,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Notify\\Laravel\\Toastr\\": "src/"
+            "Notify\\Laravel\\SweetAlert\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Notify\\Laravel\\Toastr\\Tests\\": "tests/"
+            "Notify\\Laravel\\SweetAlert\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Notify\\Laravel\\Toastr\\NotifyToastrServiceProvider"
+                "NotifySweetAlertServiceProvider"
             ]
         }
     },

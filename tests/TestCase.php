@@ -1,6 +1,6 @@
 <?php
 
-namespace Notify\Laravel\Toastr\Tests;
+namespace Notify\Laravel\SweetAlert\Tests;
 
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -16,7 +16,7 @@ class TestCase extends Orchestra
     {
         return array(
             'Notify\Laravel\NotifyServiceProvider',
-            'Notify\Laravel\Toastr\NotifyToastrServiceProvider',
+            'Notify\Laravel\SweetAlert\NotifySweetAlertServiceProvider',
         );
     }
 
@@ -32,6 +32,7 @@ class TestCase extends Orchestra
         $app['config']->set('notify'.$separator.'.adapters', array(
             'toastr' => array('scripts' => array('jquery.js')),
             'pnotify' => array('scripts' => array('jquery.js')),
+            'sweet_alert' => array('scripts' => array('jquery.js'), 'styles' => array('styles.css'), 'options' => array()),
         ));
     }
 

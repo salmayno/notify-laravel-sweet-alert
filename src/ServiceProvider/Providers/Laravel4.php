@@ -1,9 +1,9 @@
 <?php
 
-namespace Notify\Laravel\Toastr\ServiceProvider\Providers;
+namespace Notify\Laravel\SweetAlert\ServiceProvider\Providers;
 
 use Illuminate\Foundation\Application;
-use Notify\Laravel\Toastr\NotifyToastrServiceProvider;
+use Notify\Laravel\SweetAlert\NotifySweetAlertServiceProvider;
 
 final class Laravel4 extends Laravel
 {
@@ -12,17 +12,17 @@ final class Laravel4 extends Laravel
         return $this->app instanceof Application && 0 === strpos(Application::VERSION, '4.');
     }
 
-    public function publishConfig(NotifyToastrServiceProvider $provider)
+    public function publishConfig(NotifySweetAlertServiceProvider $provider)
     {
-        $provider->package('php-notify/notify-laravel-toastr', 'notify_toastr', __DIR__.'/../../../resources');
+        $provider->package('php-notify/notify-laravel-sweet_alert', 'notify_sweet_alert', __DIR__.'/../../../resources');
     }
 
-    public function mergeConfigFromToastr()
+    public function mergeConfigFromSweetAlert()
     {
-        $notifyConfig = $this->app['config']->get('notify::config.adapters.toastr', array());
+        $notifyConfig = $this->app['config']->get('notify::config.adapters.sweet_alert', array());
 
-        $toastrConfig = $this->app['config']->get('notify_toastr::config', array());
+        $sweet_alertConfig = $this->app['config']->get('notify_sweet_alert::config', array());
 
-        $this->app['config']->set('notify::config.adapters.toastr', array_merge($toastrConfig, $notifyConfig));
+        $this->app['config']->set('notify::config.adapters.sweet_alert', array_merge($sweet_alertConfig, $notifyConfig));
     }
 }

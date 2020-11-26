@@ -1,12 +1,12 @@
 <?php
 
-namespace Notify\Laravel\Toastr;
+namespace Notify\Laravel\SweetAlert;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Notify\Laravel\Toastr\ServiceProvider\ServiceProviderManager;
+use Notify\Laravel\SweetAlert\ServiceProvider\ServiceProviderManager;
 
-class NotifyToastrServiceProvider extends ServiceProvider
+class NotifySweetAlertServiceProvider extends ServiceProvider
 {
     public function boot()
     {
@@ -32,8 +32,8 @@ class NotifyToastrServiceProvider extends ServiceProvider
     {
         return array(
             'notify.producer',
-            'notify.producer.toastr',
-            'notify.renderer.toastr',
+            'notify.producer.sweet_alert',
+            'notify.renderer.sweet_alert',
         );
     }
 

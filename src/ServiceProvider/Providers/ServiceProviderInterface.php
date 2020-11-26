@@ -1,16 +1,16 @@
 <?php
 
-namespace Notify\Laravel\Toastr\ServiceProvider\Providers;
+namespace Notify\Laravel\SweetAlert\ServiceProvider\Providers;
 
-use Notify\Laravel\Toastr\NotifyToastrServiceProvider;
+use Notify\Laravel\SweetAlert\NotifySweetAlertServiceProvider;
 
 interface ServiceProviderInterface
 {
     public function shouldBeUsed();
 
-    public function publishConfig(NotifyToastrServiceProvider $provider);
+    public function publishConfig(NotifySweetAlertServiceProvider $provider);
 
-    public function registerNotifyToastrServices();
+    public function registerNotifySweetAlertServices();
 
-    public function mergeConfigFromToastr();
+    public function mergeConfigFromSweetAlert();
 }
