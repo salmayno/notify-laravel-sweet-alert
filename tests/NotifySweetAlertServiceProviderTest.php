@@ -37,8 +37,6 @@ class NotifySweetAlertServiceProviderTest extends TestCase
         $this->assertArrayHasKey('sweet_alert', $config->get('adapters'));
 
         $this->assertEquals(array(
-            'toastr' => array('scripts' => array('jquery.js')),
-            'pnotify' => array('scripts' => array('jquery.js')),
             'sweet_alert' => array('scripts' => array('jquery.js'), 'styles' => array('styles.css'), 'options' => array()),
         ), $config->get('adapters'));
     }
